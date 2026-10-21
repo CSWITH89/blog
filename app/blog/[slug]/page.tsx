@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs";
 import postTransformer from "@/utils/postTransformer";
+import Markdown from "react-markdown";
 
 type BlogPageProps = {
   params: Promise<{
@@ -14,12 +15,13 @@ const BlogPage = async ({ params }: BlogPageProps) => {
     path.join(process.cwd(), "content", "posts", `${slug}.md`),
     "utf-8",
   );
-  const { data } = postTransformer(post);
+  const { data, content } = postTransformer(post);
 
   return (
     <div>
       <h1>{data.title}</h1>
       <p>Date created: {data.date}</p>
+      <Markdown>{content}</Markdown>
     </div>
   );
 };
